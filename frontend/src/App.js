@@ -3,7 +3,8 @@ import axios from 'axios';
 import PdfComp from './PdfComp';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css'; // Import the custom CSS file
 
 function App() {
   const [formData, setFormData] = useState({
@@ -17,7 +18,7 @@ function App() {
     address: '',
     type: '',
     techStack: '',
-    resume: null // Changed to null for file upload
+    resume: null
   });
   const [allImage, setAllImage] = useState([]);
   const [showForm, setShowForm] = useState(false);
@@ -57,7 +58,7 @@ function App() {
       ...formData,
       resume: null
     });
-    document.querySelector('input[name="resume"]').value = ''; // Clear the file input field
+    document.querySelector('input[name="resume"]').value = '';
   };
 
   const validateForm = () => {
@@ -75,11 +76,7 @@ function App() {
 
     const formDataToSend = new FormData();
     Object.keys(formData).forEach(key => {
-      if (formData[key] instanceof File) {
-        formDataToSend.append(key, formData[key]);
-      } else {
-        formDataToSend.append(key, formData[key]);
-      }
+      formDataToSend.append(key, formData[key]);
     });
 
     try {
@@ -116,104 +113,146 @@ function App() {
   };
 
   return (
-    <div className="App container">
-      <div className="button-container">
+    <div className="container mt-4">
+      <div className="d-flex justify-content-between mb-3">
         <button className="btn btn-primary" onClick={handleInsertClick}>
           Insert
         </button>
-        <button className="btn btn-primary" onClick={handleTableClick}>
+        <button className="btn btn-secondary" onClick={handleTableClick}>
           Table Format
         </button>
       </div>
 
       {showForm && (
-        <form className="formStyle" onSubmit={submitForm}>
-          <h4>Submit Your Details</h4>
-          <input
-            type="text"
-            name="name"
-            className="form-control"
-            placeholder="Name"
-            onChange={handleChange}
-            required
-          />
-          <input
-            type="text"
-            name="mobileNumber"
-            className="form-control"
-            placeholder="Mobile Number"
-            onChange={handleChange}
-            required
-          />
-          <input
-            type="text"
-            name="location"
-            className="form-control"
-            placeholder="Location"
-            onChange={handleChange}
-            required
-          />
-          <input
-            type="email"
-            name="email"
-            className="form-control"
-            placeholder="Email"
-            onChange={handleChange}
-            required
-          />
-          <textarea
-            name="skillSet"
-            className="form-control"
-            placeholder="Skill Set"
-            onChange={handleChange}
-            required
-          />
-          <textarea
-            name="remarks"
-            className="form-control"
-            placeholder="Remarks"
-            onChange={handleChange}
-            required
-          />
-          <input
-            type="text"
-            name="portfolio"
-            className="form-control"
-            placeholder="Portfolio"
-            onChange={handleChange}
-            required
-          />
-          <input
-            type="text"
-            name="address"
-            className="form-control"
-            placeholder="Address"
-            onChange={handleChange}
-            required
-          />
-          <select
-            name="type"
-            className="form-control"
-            onChange={handleChange}
-            required
-          >
-            <option value="">Select Type</option>
-            <option value="Type1">Type1</option>
-            <option value="Type2">Type2</option>
-          </select>
-          <input
-            type="text"
-            name="techStack"
-            className="form-control"
-            placeholder="Tech Stack"
-            onChange={handleChange}
-            required
-          />
-          <div className="file-input-container">
+        <form className="form-container p-4 border rounded" onSubmit={submitForm}>
+          <h4 className="mb-4 text-center">Submit Your Details</h4>
+          <div className="form-group mb-3">
+            <label htmlFor="name" className="custom-label">Name</label>
+            <input
+              type="text"
+              name="name"
+              className="form-control custom-input"
+              id="name"
+              placeholder="Enter your name"
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group mb-3">
+            <label htmlFor="mobileNumber" className="custom-label">Mobile Number</label>
+            <input
+              type="text"
+              name="mobileNumber"
+              className="form-control custom-input"
+              id="mobileNumber"
+              placeholder="Enter your mobile number"
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group mb-3">
+            <label htmlFor="location" className="custom-label">Location</label>
+            <input
+              type="text"
+              name="location"
+              className="form-control custom-input"
+              id="location"
+              placeholder="Enter your location"
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group mb-3">
+            <label htmlFor="email" className="custom-label">Email</label>
+            <input
+              type="email"
+              name="email"
+              className="form-control custom-input"
+              id="email"
+              placeholder="Enter your email"
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group mb-3">
+            <label htmlFor="skillSet" className="custom-label">Skill Set</label>
+            <textarea
+              name="skillSet"
+              className="form-control custom-input"
+              id="skillSet"
+              placeholder="Enter your skill set"
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group mb-3">
+            <label htmlFor="remarks" className="custom-label">Remarks</label>
+            <textarea
+              name="remarks"
+              className="form-control custom-input"
+              id="remarks"
+              placeholder="Enter your remarks"
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group mb-3">
+            <label htmlFor="portfolio" className="custom-label">Portfolio</label>
+            <input
+              type="text"
+              name="portfolio"
+              className="form-control custom-input"
+              id="portfolio"
+              placeholder="Enter your portfolio URL"
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group mb-3">
+            <label htmlFor="address" className="custom-label">Address</label>
+            <input
+              type="text"
+              name="address"
+              className="form-control custom-input"
+              id="address"
+              placeholder="Enter your address"
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group mb-3">
+            <label htmlFor="type" className="custom-label">Type</label>
+            <select
+              name="type"
+              className="form-control custom-input"
+              id="type"
+              onChange={handleChange}
+              required
+            >
+              <option value="">Select Type</option>
+              <option value="Type1">Type1</option>
+              <option value="Type2">Type2</option>
+            </select>
+          </div>
+          <div className="form-group mb-3">
+            <label htmlFor="techStack" className="custom-label">Tech Stack</label>
+            <input
+              type="text"
+              name="techStack"
+              className="form-control custom-input"
+              id="techStack"
+              placeholder="Enter your tech stack"
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group mb-3">
+            <label htmlFor="resume" className="custom-label">Resume</label>
             <input
               type="file"
               name="resume"
-              className="form-control"
+              className="form-control custom-input"
+              id="resume"
               accept=".pdf,.doc,.docx"
               onChange={handleFileChange}
               required
@@ -221,23 +260,23 @@ function App() {
             {formData.resume && (
               <button
                 type="button"
-                className="delete-icon"
+                className="btn btn-danger mt-2"
                 onClick={handleRemoveFile}
               >
-                &times;
+                Remove File
               </button>
             )}
           </div>
-          <button className="btn btn-primary mt-2" type="submit">
+          <button className="btn btn-primary w-100" type="submit">
             Submit
           </button>
         </form>
       )}
 
       {showTable && (
-        <div className="table-container">
-          <h2>Submitted Details</h2>
-          <table className="pdf-table">
+        <div className="mt-4">
+          <h2 className="mb-4 text-center">Submitted Details</h2>
+          <table className="table table-striped table-hover">
             <thead>
               <tr>
                 <th>Name</th>
@@ -250,14 +289,14 @@ function App() {
                   <td>{data.name}</td>
                   <td>
                     <button
-                      className="btn btn-primary mr-2"
+                      className="btn btn-primary btn-sm me-2"
                       onClick={() => handleRowClick(data)}
                     >
                       View
                     </button>
                     <a
                       href={`http://localhost:5000/files/${data.resume}`}
-                      className="btn btn-secondary"
+                      className="btn btn-secondary btn-sm"
                       download
                     >
                       Download
@@ -271,18 +310,18 @@ function App() {
       )}
 
       {selectedPdf && (
-        <div className="card">
-          <h2>Details</h2>
-          <h3>Name: {selectedPdf.name}</h3>
-          <p>Mobile Number: {selectedPdf.mobileNumber}</p>
-          <p>Location: {selectedPdf.location}</p>
-          <p>Email: {selectedPdf.email}</p>
-          <p>Skill Set: {selectedPdf.skillSet}</p>
-          <p>Remarks: {selectedPdf.remarks}</p>
-          <p>Portfolio: {selectedPdf.portfolio}</p>
-          <p>Address: {selectedPdf.address}</p>
-          <p>Type: {selectedPdf.type}</p>
-          <p>Tech Stack: {selectedPdf.techStack}</p>
+        <div className="mt-4 card p-4">
+          <h2 className="card-title">Details</h2>
+          <h3 className="card-subtitle mb-3">Name: {selectedPdf.name}</h3>
+          <p><strong>Mobile Number:</strong> {selectedPdf.mobileNumber}</p>
+          <p><strong>Location:</strong> {selectedPdf.location}</p>
+          <p><strong>Email:</strong> {selectedPdf.email}</p>
+          <p><strong>Skill Set:</strong> {selectedPdf.skillSet}</p>
+          <p><strong>Remarks:</strong> {selectedPdf.remarks}</p>
+          <p><strong>Portfolio:</strong> {selectedPdf.portfolio}</p>
+          <p><strong>Address:</strong> {selectedPdf.address}</p>
+          <p><strong>Type:</strong> {selectedPdf.type}</p>
+          <p><strong>Tech Stack:</strong> {selectedPdf.techStack}</p>
           <PdfComp pdfFile={`http://localhost:5000/files/${selectedPdf.resume}`} />
         </div>
       )}
